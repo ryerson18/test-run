@@ -19,7 +19,7 @@ namespace test_run
         }
 
         Rectangle Car;
-        
+
 
         SolidBrush greenBrush = new SolidBrush(Color.Green);
 
@@ -36,8 +36,8 @@ namespace test_run
 
         int carAngle = 0;
 
-        int carsSpeed = 2;
-        
+        int carsSpeed = 5;
+
         int widthCar = 15;
         int heightCar = 30;
         int carSpeed = 10;
@@ -49,14 +49,14 @@ namespace test_run
         public void OnStart()
         {
             // staring value for 
-            int carsSpeed = 2;
+            int carsSpeed = 5;
             int carAngle = 0;
             int widthCar = 15;
             int heightCar = 30;
             int carSpeed = 10;
 
-            int xCar = this.Width / 2 - widthCar/ 2;
-            int yCar = this.Height - 30;
+            int xCar = this.Width / 2 - widthCar / 2;
+            int yCar = this.Height - 50;
 
             Car = new Rectangle(xCar, yCar, widthCar, heightCar);
         }
@@ -105,26 +105,26 @@ namespace test_run
         private void testTimer_Tick(object sender, EventArgs e)
         {
             // move up and dwon 
-            if (arrowup == true && Car.X < this.Height - Car.Height)
+            if (arrowup == true)
             {
-                Car.Y -= updownSpeed;
+               movecarBakcwards();
             }
-            if (arrowdown == true && Car.X < this.Height - Car.Height)
+            if (arrowdown == true)
             {
-                Car.Y += updownSpeed;
+                movecarForwand();
             }
 
 
             //turn the car 
             if (arrowleft == true)
             {
-                //Car.X -= sideSpeed;
-                carAngle--;
+
+                carAngle -= 8;
             }
-            if (arrowright == true )
+            if (arrowright == true)
             {
-               // Car.X += sideSpeed;
-                carAngle++;
+              
+                carAngle +=8;
             }
 
 
@@ -134,11 +134,11 @@ namespace test_run
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.TranslateTransform(widthCar/2 + Car.X, widthCar/ 2 + Car.Y);
+            e.Graphics.TranslateTransform(widthCar / 2 + Car.X, widthCar / 2 + Car.Y);
 
             e.Graphics.RotateTransform(carAngle);
 
-            e.Graphics.FillRectangle(greenBrush, 0 - widthCar / 2, 0 - widthCar /2, widthCar,heightCar);
+            e.Graphics.FillRectangle(greenBrush, 0 - widthCar / 2, 0 - widthCar / 2, widthCar, heightCar);
 
             e.Graphics.ResetTransform();
 
@@ -148,6 +148,31 @@ namespace test_run
         {
 
         }
+
+        public void movecarForwand()
+        {
+            double angleInRadian = Math.PI * carAngle / 180;
+            int deltaY = (int)(carSpeed * Math.Cos(angleInRadian));
+            int deltaX = (int)(carSpeed * Math.Sin(angleInRadian));
+
+
+
+            Car.Y += deltaY;
+            Car.X -= deltaX;
+
+            this.Refresh();
+        }
+
+        public void movecarBakcwards()
+        {
+            double angleInRadian = Math.PI * carAngle / 180;
+            int deltaY = (int)(carSpeed * Math.Cos(angleInRadian));
+            int deltaX = (int)(carSpeed * Math.Sin(angleInRadian));
+
+            Car.Y -= deltaY;
+            Car.X += deltaX;
+        }
+
     }
 }
 
