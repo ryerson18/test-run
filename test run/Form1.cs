@@ -127,10 +127,7 @@ namespace test_run
                 carAngle +=8;
             }
 
-            if (Car.IntersectsWith(label1.Bounds))
-            {
-                Car.X = 10;
-            }
+            
 
 
             //redraw the screen
